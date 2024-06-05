@@ -1,0 +1,2 @@
+Este é um projeto novo, onde vou criar a pagina de uma lanchonete inspirado em um antigo trabalho da faculdade onde eu fiquei responsável pelo FrontEnd
+Logo meu intuito com este projeto é estudar API`s Rest com TS e refazer o frontend com Next e TS
