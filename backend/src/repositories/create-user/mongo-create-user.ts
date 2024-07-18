@@ -3,7 +3,7 @@ import { MongoClient } from '../../database/mongo';
 import convertMongo_IdToId from '../../helpers/convertMongo_IdToId';
 import { User } from '../../models/user';
 
-export class MongoCreateUser implements I_CreateUserRepository{
+export class MongoCreateUserRepository implements I_CreateUserRepository{
   async createUser(params: CreateUserParams): Promise<User> {
     const { insertedId } = await MongoClient.db.collection('users').insertOne(params)
 
