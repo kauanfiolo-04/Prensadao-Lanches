@@ -22,7 +22,7 @@ const main = async ()=>{
 
     const { body, statusCode }= await getUsersController.handle()
 
-    res.send(body).status(statusCode)
+    res.status(statusCode).send(body)
   })
 
   app.post('/users', async (req,res)=>{
@@ -32,7 +32,7 @@ const main = async ()=>{
 
     const { body, statusCode } = await createUserController.handle({body: req.body})
   
-    res.send(body).status(statusCode)
+    res.status(statusCode).send(body)
   })
 
   const port = process.env.PORT || 8000
