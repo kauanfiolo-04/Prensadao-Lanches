@@ -1,6 +1,6 @@
 import { CreateUserParams, I_CreateUserRepository } from '../../controllers/create-user/protocols'
 import { MongoClient } from '../../database/mongo';
-import convertMongo_IdToId from '../../helpers/convertMongo_IdToId';
+import convertUserWithMongo_IdToUserWithId from '../../helpers/convertUserWithMongo_IdToUserWithId';
 import { User } from '../../models/user';
 
 export class MongoCreateUserRepository implements I_CreateUserRepository{
@@ -13,6 +13,6 @@ export class MongoCreateUserRepository implements I_CreateUserRepository{
       throw new Error('User not created')
     }
 
-    return convertMongo_IdToId(user)
+    return convertUserWithMongo_IdToUserWithId(user)
   }
 }
