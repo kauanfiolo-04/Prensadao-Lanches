@@ -3,6 +3,7 @@ import { I_UpdateUserRepository, UpdateUserParams } from '../../controllers/upda
 import { MongoClient } from '../../database/mongo'
 import { User } from '../../models/user'
 import convertUserWithMongo_IdToUserWithId from '../../helpers/convertUserWithMongo_IdToUserWithId'
+import { MongoUser } from '../mongo-protocols'
 
 export class MongoUpdateUserRepository implements I_UpdateUserRepository{
   async updateUser(id: string, params: UpdateUserParams): Promise<User> {
@@ -15,7 +16,7 @@ export class MongoUpdateUserRepository implements I_UpdateUserRepository{
       }
     )
 
-    const user = await MongoClient.db.collection<Omit<User, 'id'>>('users').findOne({_id: new ObjectId(id)})
+    const user = await MongoClient.db.collection<MongoUser>('users').findOne({_id: new ObjectId(id)})
 
     if(!user){
       throw new Error('User not updated')
