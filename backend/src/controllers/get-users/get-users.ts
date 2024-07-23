@@ -1,6 +1,7 @@
-import { I_GetUsersController, I_GetUsersRepository } from './protocols'
+import { I_Controller } from '../protocols'
+import { I_GetUsersRepository } from './protocols'
 
-export class GetUsersController implements I_GetUsersController{
+export class GetUsersController implements I_Controller{
   constructor(private readonly getusersRepository: I_GetUsersRepository){}
 
   async handle() {
