@@ -5,6 +5,6 @@ export interface I_DeleteUserRepository{
   deleteUser(id: string): Promise<User>
 }
 
-// export interface I_DeleteUserController{
-//   handle(httpRequest:HttpRequest<>): Promise<HttpResponse<User>>
-// }
+export interface I_DeleteUserController{
+  handle(httpRequest:HttpRequest<any>): Promise<HttpResponse<User>>
+}
