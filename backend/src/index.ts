@@ -10,6 +10,7 @@ import { MongoUpdateUserRepository } from './repositories/update-user/mongo-upda
 import { MongoDeleteUserRepository } from './repositories/delete-user/mongo-delete-user'
 import { DeleteUserController } from './controllers/delete-user/delete-user'
 import { MongoCreateItemRepository } from './repositories/create-item/mongo-create-item'
+import { CreateItemController } from './controllers/create-item/create-item'
 
 const main = async ()=>{
   config()
@@ -40,13 +41,15 @@ const main = async ()=>{
     res.status(statusCode).send(body)
   })
 
-  // app.post('/items', async (req,res)=>{
-  //   const mongoCreateItemRepository = new MongoCreateItemRepository()
+  app.post('/items', async (req,res)=>{
+    const mongoCreateItemRepository = new MongoCreateItemRepository()
 
-  //   const createItemController = new CreateUserController(mongoCreateItemRepository)
+    const createItemController = new CreateItemController(mongoCreateItemRepository)
 
-  //   const { body, statusCode } = await createItemController.handle({body, req.body})
-  // })
+    const { body, statusCode } = await createItemController.handle({body: req.body})
+
+    res.status(statusCode).send(body)
+  })
 
   app.patch('/users/:id',async (req,res)=>{
     const mongoUpdateUserRepository=new MongoUpdateUserRepository()
