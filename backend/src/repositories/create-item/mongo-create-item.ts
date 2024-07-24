@@ -4,7 +4,7 @@ import convertItemWithMongo_IdToItemWithId from '../../helpers/convertItemWithMo
 import { Item } from '../../models/item'
 import { MongoItem } from '../mongo-protocols';
 
-export class CreateItemRepository implements I_CreateItemRepository{
+export class MongoCreateItemRepository implements I_CreateItemRepository{
   async createItem(params: CreateItemParams): Promise<Item> {
     const { insertedId } = await MongoClient.db.collection('items').insertOne(params)
 
