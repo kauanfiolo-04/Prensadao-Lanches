@@ -13,6 +13,8 @@ import { MongoCreateItemRepository } from './repositories/create-item/mongo-crea
 import { CreateItemController } from './controllers/create-item/create-item'
 import { MongoGetItemsRepository } from './repositories/get-items/mongo-get-items'
 import { GetItemsController } from './controllers/get-items/get-items'
+import { MongoDeleteItemRepository } from './repositories/delete-item/mongo-delete-item'
+import { DeleteItemController } from './controllers/delete-item/delete-item'
 
 const main = async ()=>{
   config()
@@ -23,22 +25,13 @@ const main = async ()=>{
 
   await MongoClient.connect()
 
+  // USERS ROUTES
   app.get('/users', async (req,res)=>{
-    const mongoGetUsersRepository= new MongoGetUsersRepository()
+    const mongoGetUsersRepository = new MongoGetUsersRepository()
 
-    const getUsersController= new GetUsersController(mongoGetUsersRepository)
+    const getUsersController = new GetUsersController(mongoGetUsersRepository)
 
-    const { body, statusCode }= await getUsersController.handle()
-
-    res.status(statusCode).send(body)
-  })
-
-  app.get('/items', async (req,res)=>{
-    const mongoGetItemsRepository = new MongoGetItemsRepository()
-
-    const getItemController = new GetItemsController(mongoGetItemsRepository)
-
-    const { body, statusCode } = await getItemController.handle()
+    const { body, statusCode } = await getUsersController.handle()
 
     res.status(statusCode).send(body)
   })
@@ -50,16 +43,6 @@ const main = async ()=>{
 
     const { body, statusCode } = await createUserController.handle({body: req.body})
   
-    res.status(statusCode).send(body)
-  })
-
-  app.post('/items', async (req,res)=>{
-    const mongoCreateItemRepository = new MongoCreateItemRepository()
-
-    const createItemController = new CreateItemController(mongoCreateItemRepository)
-
-    const { body, statusCode } = await createItemController.handle({body: req.body})
-
     res.status(statusCode).send(body)
   })
 
@@ -79,6 +62,37 @@ const main = async ()=>{
     const deleteUserController = new DeleteUserController(mongoDeleteUserRepository)
 
     const { body, statusCode } = await deleteUserController.handle({params: req.params})
+
+    res.status(statusCode).send(body)
+  })
+
+  // ITEMS ROUTES
+  app.get('/items', async (req,res)=>{
+    const mongoGetItemsRepository = new MongoGetItemsRepository()
+
+    const getItemController = new GetItemsController(mongoGetItemsRepository)
+
+    const { body, statusCode } = await getItemController.handle()
+
+    res.status(statusCode).send(body)
+  })
+
+  app.post('/items', async (req,res)=>{
+    const mongoCreateItemRepository = new MongoCreateItemRepository()
+
+    const createItemController = new CreateItemController(mongoCreateItemRepository)
+
+    const { body, statusCode } = await createItemController.handle({body: req.body})
+
+    res.status(statusCode).send(body)
+  })
+
+  app.delete('/items/:id', async (req,res)=>{
+    const mongoDeleteItemRepository = new MongoDeleteItemRepository()
+
+    const deleteItemController = new DeleteItemController(mongoDeleteItemRepository)
+
+    const { body, statusCode } = await deleteItemController.handle({params: req.params})
 
     res.status(statusCode).send(body)
   })
