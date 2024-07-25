@@ -13,7 +13,7 @@ export class CreateUserController implements I_Controller{
       const requiredFields = ['firstName', 'lastName', 'email', 'password']
 
       for(const field of requiredFields){
-        if(!httpRequest?.body?.[field as keyof CreateUserParams]?.length){
+        if(!httpRequest?.body?.[field as keyof CreateUserParams]){
           return badRequest(`Field ${field} is required`)
         }
       }
