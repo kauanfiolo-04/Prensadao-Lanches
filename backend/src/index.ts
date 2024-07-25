@@ -15,6 +15,8 @@ import { MongoGetItemsRepository } from './repositories/get-items/mongo-get-item
 import { GetItemsController } from './controllers/get-items/get-items'
 import { MongoDeleteItemRepository } from './repositories/delete-item/mongo-delete-item'
 import { DeleteItemController } from './controllers/delete-item/delete-item'
+import { MongoUpdateItemRepository } from './repositories/update-item/mongo-update-item'
+import { UpdateItemController } from './controllers/update-item/update-item'
 
 const main = async ()=>{
   config()
@@ -83,6 +85,16 @@ const main = async ()=>{
     const createItemController = new CreateItemController(mongoCreateItemRepository)
 
     const { body, statusCode } = await createItemController.handle({body: req.body})
+
+    res.status(statusCode).send(body)
+  })
+
+  app.patch('/items/:id', async (req,res)=>{
+    const mongoUpdateItemRepository = new MongoUpdateItemRepository()
+
+    const updateItemController = new UpdateItemController(mongoUpdateItemRepository)
+
+    const { body, statusCode } = await updateItemController.handle({body: req.body, params: req.params})
 
     res.status(statusCode).send(body)
   })
