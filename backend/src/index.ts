@@ -11,6 +11,8 @@ import { MongoDeleteUserRepository } from './repositories/delete-user/mongo-dele
 import { DeleteUserController } from './controllers/delete-user/delete-user'
 import { MongoCreateItemRepository } from './repositories/create-item/mongo-create-item'
 import { CreateItemController } from './controllers/create-item/create-item'
+import { MongoGetItemsRepository } from './repositories/get-items/mongo-get-items'
+import { GetItemsController } from './controllers/get-items/get-items'
 
 const main = async ()=>{
   config()
@@ -27,6 +29,16 @@ const main = async ()=>{
     const getUsersController= new GetUsersController(mongoGetUsersRepository)
 
     const { body, statusCode }= await getUsersController.handle()
+
+    res.status(statusCode).send(body)
+  })
+
+  app.get('/items', async (req,res)=>{
+    const mongoGetItemsRepository = new MongoGetItemsRepository()
+
+    const getItemController = new GetItemsController(mongoGetItemsRepository)
+
+    const { body, statusCode } = await getItemController.handle()
 
     res.status(statusCode).send(body)
   })
