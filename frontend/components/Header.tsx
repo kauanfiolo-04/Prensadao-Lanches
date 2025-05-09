@@ -2,7 +2,19 @@
 
 import { useState } from "react";
 import Menu from "./Menu";
-import { Bars3BottomLeftIcon } from "@heroicons/react/16/solid";
+import { Icon } from '@iconify/react';
+
+export type MenuItem = {
+  link: string;
+  icon: string;
+  text: string;
+};
+
+const menuItems: MenuItem[] = [
+  { link: "/category/hot-dog",  text: "Hot Dogs", icon: "lucide-lab:hot-dog" },
+  { link: "/category/hamburg", text: "Hamburguers", icon: "lucide:hamburger" },
+  { link: "/category/pizza", text: "Pizza", icon: "lucide:pizza" }
+];
 
 const Header = () => {
   const [showMenu, setShowMenu] = useState(false);
@@ -19,10 +31,13 @@ const Header = () => {
         type="button"
         onClick={openMenu}
       >
-        <Bars3BottomLeftIcon className="text-black size-6"/>
+        <Icon 
+          width={24}
+          icon="solar:hamburger-menu-broken"
+        />
       </button>
 
-      {showMenu && <Menu closeModal={closeMenu} />}
+      {showMenu && <Menu items={menuItems} closeModal={closeMenu} />}
     </header>
   )
 }

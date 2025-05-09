@@ -4,19 +4,13 @@ import Image from "next/image";
 
 type LogoProps = {
   redirect?: boolean;
-  width?: number;
-  height?: number;
+  className?: string;
 };
 
-const Logo = ({ width, height, redirect }: LogoProps) => {
-  const imgProps:Omit<LogoProps, 'redirect'> = {};
-
-  if (width) imgProps.width = width;
-  if (height) imgProps.height = height;
-
+const Logo = ({ redirect, className }: LogoProps) => {
   return (
     <Link href={redirect ? "/" : ""} >
-      <Image {...imgProps} src={LogoIcon} alt="logo" />
+      <Image className={className} src={LogoIcon} alt="logo" />
     </Link>
   );
 };
